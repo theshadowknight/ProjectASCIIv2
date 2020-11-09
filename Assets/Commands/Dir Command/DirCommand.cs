@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DirCommand : BaseCommand
 {
-    public override IEnumerator Execute(string[] args,out Variable output)
+   /* public override IEnumerator Execute(string[] args,out Variable output)
     {
 
         //dir path
@@ -67,7 +67,7 @@ public class DirCommand : BaseCommand
         Processor.instance.AddToProcessor(new ProcessorTask(10,1,()=> { }));
         output = base.Execute(args);
     }
-   
+   */
     public string DisplayAt(string path)
     {
       

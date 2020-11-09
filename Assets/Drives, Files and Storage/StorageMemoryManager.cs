@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,6 +17,9 @@ public class StorageMemoryManager : MonoBehaviour
     public static StorageMemoryManager instance;
     public Drive defaultDrive = new Drive("drive0:");
     public TextMeshProUGUI pathText;
+    public File bufferFileMade=null;
+    public File bufferFileGet = null;
+
     public void ChangePathText()
     {
         pathText.text = TextScreenManager.instance.beginText+ GetCurrentPath() + ">" + TextScreenManager.instance.endText;
@@ -74,56 +78,164 @@ public class StorageMemoryManager : MonoBehaviour
     {
         return new File(namer, extension, data);
     }
-    public File MakeFileInFile(File parent,string namer, string extension, string data = "")
+    public IEnumerator FileMaker(string namer, string extension, string data = "")
     {
-        File f = MakeFile(namer, extension, data);
-        if (parent.files.FindIndex(x => x.name == namer) != -1)
-        {
-            return null;
-        }
-        f.parentFile = parent;
-        parent.files.Add(f);
-        return f;
+        yield return new WaitUntil(()=>Processor.instance.UseRam(10));
+        yield return new WaitUntil(() => Processor.instance.UseRam(namer.Length*8+8+data.Length*8));
+
+        bufferFileMade = MakeFile( namer, extension, data);
+
+
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+
     }
-    public File MakeFileAtPath(string path, string namer, string extension, string data = "")
+    public IEnumerator FileMakerInFile(File parent,string namer, string extension, string data = "")
     {
-        File parent = GetFileFormPath(path);
-        if (parent == null)
-        {
-            return null;
-        }
-        File f = MakeFileInFile(parent, namer, extension, data);
-        return f;
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+        yield return new WaitUntil(() => Processor.instance.UseRam(namer.Length * 8 + 8 + data.Length * 8));
+        yield return FileMaker(namer,extension,data );
+        bufferFileMade.parentFile = parent;
+        bufferFileMade.parentDrive = parent.parentDrive;
+        bufferFileMade.SetParentToChildren();
+
+
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+
     }
-    public File GetFileFormPath(string path)
+    public IEnumerator FileMakerAtPath(File parent, string namer, string extension, string data = "")
     {
-      
-        string[] splitted= path.Split('/');
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+        yield return new WaitUntil(() => Processor.instance.UseRam(namer.Length * 8 + 8 + data.Length * 8));
+        yield return FileMaker(namer, extension, data);
+        bufferFileMade.parentFile = parent;
+        bufferFileMade.parentDrive = parent.parentDrive;
+        bufferFileMade.SetParentToChildren();
+
+
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+
+    }
+     public File MakeFileInFile(File parent,string namer, string extension, string data = "")
+     {
+         File f = MakeFile(namer, extension, data);
+         if (parent.files.FindIndex(x => x.name == namer) != -1)
+         {
+             return null;
+         }
+         f.parentFile = parent;
+         parent.files.Add(f);
+         return f;
+     }
+      public File MakeFileAtPath(string path, string namer, string extension, string data = "")
+      {
+          File parent = GetFileFormPath(path);
+          if (parent == null)
+          {
+              return null;
+          }
+          File f = MakeFileInFile(parent, namer, extension, data);
+          return f;
+      }
+   /* public IEnumerator GetFileFormPath(string path)
+    {
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+
+        string[] splitted = path.Split('/');
+        yield return new WaitUntil(() => Processor.instance.UseRam(splitted.Length*16));
         Drive d = drives.Find(x => x.namer == splitted[0]);
+        yield return new WaitUntil(() => Processor.instance.UseRam(drives.Count * 24));
+
         if (d == null)
         {
-            return null;
+            bufferFileGet = null;
+            yield break;
         }
         if (splitted[splitted.Length - 1] == "..")
         {
-            return null;
+            bufferFileGet = null;
+            yield break;
+
         }
+        yield return new WaitUntil(() => Processor.instance.UseRam(16));
+
         File f = d.main;
         List<string> spl = splitted.ToList<string>();
         if (spl.Contains(".."))
         {
-            
-                f = Finder(f, spl,2);
-            
+
+            f = Finder(f, spl, 2);
+
         }
-        else {
+        else
+        {
             for (int a = 2; a < spl.Count; a++)
             {
+                yield return new WaitUntil(() => Processor.instance.UseRam(10));
+
                 f = f.FindFileWithName(spl[a]);
             }
         }
-        return f;
-    }
+        bufferFileGet= f;
+    }*/
+     public File GetFileFormPath(string path)
+     {
+
+         string[] splitted= path.Split('/');
+         Drive d = drives.Find(x => x.namer == splitted[0]);
+         if (d == null)
+         {
+             return null;
+         }
+         if (splitted[splitted.Length - 1] == "..")
+         {
+             return null;
+         }
+         File f = d.main;
+         List<string> spl = splitted.ToList<string>();
+         if (spl.Contains(".."))
+         {
+
+                 f = Finder(f, spl,2);
+
+         }
+         else {
+             for (int a = 2; a < spl.Count; a++)
+             {
+                 f = f.FindFileWithName(spl[a]);
+             }
+         }
+         return f;
+     }
+    /*public IEnumerator Finder(File currentf, List<string> spl, int index)
+    {
+
+        //main drive0:/../test 2
+
+        for (int i = 0; i < currentf.files.Count; i++)
+        {
+            if (spl.Count < index)
+            {
+                return null;
+            }
+            Debug.LogError(currentf.name + "-" + spl[index] + index);
+            File g = null;
+            if (spl[index] == "..")
+            {
+                g = Finder(currentf.files[i], spl, (index + 1));
+            }
+            else
+            {
+                g = currentf.FindFileWithName(spl[index]);
+            }
+            if (g != null)
+            {
+                Debug.LogError("found");
+                return g;
+            }
+        }
+        return null;
+
+    }*/
     public File Finder(File currentf, List<string> spl,int index)
     {
 

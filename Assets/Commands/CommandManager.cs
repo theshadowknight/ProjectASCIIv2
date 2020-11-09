@@ -34,8 +34,8 @@ public class CommandManager : MonoBehaviour
     public Variable ExecuteCommand(string commandName, string[] args)
     {
         BaseCommand bc = GetCommand(commandName);
-      
-        return  bc.Execute(args);
+
+        return null;// bc.Execute(args);
     }
     public bool IsCommand(string commandName)
     {

@@ -1161,36 +1161,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!21 &1161931080
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/Scanlines
-  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Intensity: 0.39999998
-    - _Offset: 385.4143
-    - _ValueX: 300
-    m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1171484076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,6 +1202,18 @@ MonoBehaviour:
       files: []
       size: 0
   pathText: {fileID: 1305528921}
+  bufferFileMade:
+    name: 
+    extension: 
+    data: 
+    files: []
+    size: 0
+  bufferFileGet:
+    name: 
+    extension: 
+    data: 
+    files: []
+    size: 0
   references:
     version: 1
     00000000:
@@ -1710,6 +1692,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!21 &1827835367
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/Scanlines
+  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Intensity: 0.39999998
+    - _Offset: 390.0146
+    - _ValueX: 300
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1860933331
 GameObject:
   m_ObjectHideFlags: 0
@@ -1805,7 +1817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d7d7b254aaae4d45bcd5c5b93e4b7d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RAMmaxSize: 200
+  RAMmaxSize: 100
   RAMcurrSize: 0
   tactsPS: 1
   maxTackLoops: 0
@@ -2112,8 +2124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanlineIntensity: 40
   scanlineWidth: 300
-  offset: 385.4143
-  material_Scanlines: {fileID: 1161931080}
+  offset: 390.0146
+  material_Scanlines: {fileID: 1827835367}
   move: 1
   speedadd: 0.1
 --- !u!1 &2133208447

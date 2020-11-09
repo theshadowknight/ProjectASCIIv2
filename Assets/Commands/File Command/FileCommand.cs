@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class FileCommand : BaseCommand
 {
-    public override Variable Execute(string[] args)
+   /* public override Variable Execute(string[] args)
     {
 
         //file -m path name extension data
@@ -54,5 +54,5 @@ public class FileCommand : BaseCommand
             }
         
         return base.Execute(args);
-    }
+    }*/
 }

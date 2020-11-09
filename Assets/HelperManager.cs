@@ -18,6 +18,7 @@ public class HelperManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
+ 
     public string SizeConventer(long l)
     {
         if (l > 1073741824)

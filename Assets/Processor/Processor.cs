@@ -37,8 +37,12 @@ public class Processor : MonoBehaviour
     {
         while (true)
         {
-            DoTasks();
+            // DoTasks();
+            if (RAMcurrSize < RAMmaxSize) { 
+            RAMcurrSize += RAMmaxSize;
+        }
             Debug.Log("tacted");
+
             yield return new WaitForSeconds(tactWaitTime);
         }
     }
@@ -86,14 +90,57 @@ public class Processor : MonoBehaviour
         mainTacter = tact();
         UpdateTwt();
         StartCoroutine(mainTacter);
+        StartCoroutine(mainThreat());
     }
-  public bool UseRam(int amount)
+    /* public bool UseRam(int amount)
+       {
+           if (RAMcurrSize >= amount)
+           {
+               RAMcurrSize -= amount;
+               return true;
+           }
+               return false;
+       }*/
+
+    public bool UseRam(int amount)
     {
-        if (RAMcurrSize >= amount)
+        if (RAMcurrSize > 0)
         {
             RAMcurrSize -= amount;
             return true;
         }
-            return false;
+        return false;
+    }
+    public IEnumerator mainThreat()
+    {
+        while (true)
+        {
+            // DoTasks();
+           //RAMcurrSize += RAMmaxSize;
+      
+            yield return test();
+            yield return new WaitForSeconds(tactWaitTime);
+        }
+    }
+    public void s()
+    {
+       
+    }
+    public IEnumerator test()
+    {
+        Debug.LogError("current ram:"+RAMcurrSize);
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+        Debug.LogError("used 10 ram");
+        Debug.LogError("current ram:" + RAMcurrSize);
+        yield return new WaitUntil(() => Processor.instance.UseRam(1000));
+        Debug.LogError("used 1000 ram");
+        Debug.LogError("current ram:" + RAMcurrSize);
+
+
+
+        yield return new WaitUntil(() => Processor.instance.UseRam(10));
+        Debug.LogError("used 10 ram");
+        Debug.LogError("current ram:" + RAMcurrSize);
+
     }
 }

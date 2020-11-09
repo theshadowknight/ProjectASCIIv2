@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HelpCommand : BaseCommand
 {
-    public override Variable Execute(string[] args)
+    /*public override Variable Execute(string[] args)
     {
         //TextScreenManager.instance.Write(helpText);
         string s = helpText + '\n';
@@ -14,5 +14,5 @@ public class HelpCommand : BaseCommand
             s += string.Format("{0,9} -{1,35} {2,15} help' to get more info.\n", CommandManager.instance.commands[i].commandWord, CommandManager.instance.commands[i].quickHelp + ". Use", "'" + CommandManager.instance.commands[i].commandWord + " help'");// CommandManager.instance.commands[i].commandWord+" - "+ CommandManager.instance.commands[i].quickHelp+"\t .Use '" + CommandManager.instance.commands[i].commandWord+ " help' to get more info." + '\n';
         }
         return new Variable("out",VariableType.String,s);
-    }
+    }*/
 }
