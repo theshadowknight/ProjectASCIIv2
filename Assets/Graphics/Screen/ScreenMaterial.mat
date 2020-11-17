@@ -57,21 +57,21 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AbberationStrength: 0.42
-    - _Brightness: 2.5
+    - _Brightness: 3
     - _BumpScale: 1
     - _CurveX: 4.2
     - _CurveY: 3.5
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DoubleOffset: 4.52
-    - _DoubleStrength: 0.12
+    - _DoubleOffset: 1.13
+    - _DoubleStrength: 2
     - _DstBlend: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _LineDistributionPow: 1
     - _LineScale: 0.5
-    - _LineWeight: 1
+    - _LineWeight: 0.512
     - _LineWeightMax: 0.3
     - _LineWeightMin: 0.3
     - _Metallic: 0
@@ -87,7 +87,7 @@ Material:
     - _UseCurve: 1
     - _UseScanLines: 1
     - _UseVignette: 1
-    - _VignettePower: 0.4
+    - _VignettePower: 0.3
     - _ZWrite: 1
     - _Zoom: 1
     m_Colors:

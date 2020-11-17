@@ -5,13 +5,15 @@ using UnityEngine;
 
 public class Drive//: ScriptableObject
 {
-    public string namer;
+    public string name;
     [SerializeField]
     public File main = new File("main","");
     public void SetupFiles()
     {
         looper(main);
         main.SetParentToChildren();
+        Debug.Log(main.parentDrive.name);
+
     }
     private void looper(File f)
     {
@@ -24,6 +26,6 @@ public class Drive//: ScriptableObject
     }
     public Drive(string n)
     {
-        namer = n;
+        name = n;
     }
 }

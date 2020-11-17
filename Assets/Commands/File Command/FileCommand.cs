@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HelperFunctions;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 public class FileCommand : BaseCommand
 {
-   /* public override Variable Execute(string[] args)
+    public override IEnumerator Execute(string[] args)
     {
 
         //file -m path name extension data
@@ -15,7 +16,7 @@ public class FileCommand : BaseCommand
         //file -d path
         if (args.Length < 2)
         {
-            return new Variable("error", VariableType.Error, "Not enough arguments!");
+            commandOutput= new Variable("error", VariableType.NULL, "Not enough arguments!");
         }
         string path = StorageMemoryManager.instance.Pather(args[1]);
        
@@ -30,7 +31,7 @@ public class FileCommand : BaseCommand
                    
                         if (args.Length < 3)
                         {
-                            return new Variable("error", VariableType.Error, "Not enough arguments!");
+                        commandOutput= new Variable("error", VariableType.NULL, "Not enough arguments!");
                         }
                         namer = args[2];
                         if (args.Length > 3)
@@ -41,18 +42,25 @@ public class FileCommand : BaseCommand
                         {
                             data = args[4];
                         }
-                   
-                  File f=  StorageMemoryManager.instance.MakeFileAtPath(path, namer,ext,data);
-                    return new Variable("out", VariableType.Bool, (f != null).ToString());
+                    
+                    yield return  StorageMemoryManager.instance.FileMakerAtPath(path, namer,ext,data);
+
+                    File f = StorageMemoryManager.instance.bufferFileMade;
+                    commandOutput= new Variable("out", VariableType.Bool, (f != null).ToString());
+                    StorageMemoryManager.instance.bufferFileMade = null;
+                    yield break;
                         }
                 case "-d":
                     {
-                    return StorageMemoryManager.instance.RemoveFileAtPath(path);
-                   
-                    }
+                    yield return StorageMemoryManager.instance.RemoveFileAtPath(path);
+                    commandOutput = StorageMemoryManager.instance.removalOutput;
+
+                    yield break;
+                }
                
             }
-        
-        return base.Execute(args);
-    }*/
+
+        commandOutput = new Variable("out", VariableType.NULL, "NULL");
+        yield break;
+    }
 }

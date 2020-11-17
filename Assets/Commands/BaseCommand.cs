@@ -10,15 +10,12 @@ public abstract class BaseCommand : ScriptableObject
     public string quickHelp;
     [Multiline(6)]
     public string helpText;
-
-    public void S()
-    {
-      
-    }
+    [HideInInspector]
+    public Variable commandOutput;
+   
     public virtual IEnumerator Execute(string[] args)
     {
-       // output = new Variable("out",VariableType.Bool,"false");
-        yield return new WaitUntil(()=>Processor.instance.UseRam(100));
-        yield return new Variable("out", VariableType.Bool, "false"); 
+        yield return new WaitUntil(()=>Processor.instance.UseRam(10));
+        commandOutput = new Variable("out", VariableType.Bool, "false"); 
     }
 }

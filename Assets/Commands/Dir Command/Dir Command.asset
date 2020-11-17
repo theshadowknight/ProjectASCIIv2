@@ -14,4 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commandWord: dir
   quickHelp: used for going through files
-  helpText: 
+  helpText: '-g - going through files: dir -g |path|
+
+    -s - showing files: dir
+    -s [c:8]{|path|}[c:0]
+
+    -t - transfering files: dir -t |path_from| |path_to|
+
+    Examples:
+
+    dir
+    -g ./system
+
+    dir -s -c
+
+    dir -t -c ./system'

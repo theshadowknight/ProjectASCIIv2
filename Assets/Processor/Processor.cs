@@ -9,7 +9,6 @@ public class Processor : MonoBehaviour
     public int RAMcurrSize;
 
     public int tactsPS;
-    private float tactWaitTime;
     public int maxTackLoops;
     public List<ProcessorTask> PTaskStack = new List<ProcessorTask>();
     public static Processor instance;
@@ -29,10 +28,7 @@ public class Processor : MonoBehaviour
         }
 
     }
-    public void UpdateTwt()
-    {
-        tactWaitTime = 1.0f / tactsPS;
-    }
+   
     IEnumerator tact()
     {
         while (true)
@@ -43,15 +39,15 @@ public class Processor : MonoBehaviour
         }
             Debug.Log("tacted");
 
-            yield return new WaitForSeconds(tactWaitTime);
+            yield return new WaitForSeconds(1f/ tactsPS);
         }
     }
-    public void AddToProcessor(ProcessorTask pt)
+    /*public void AddToProcessor(ProcessorTask pt)
     {
         PTaskStack.Add(pt);
 
-    }
-    public void DoTasks()
+    }*/
+  /*  public void DoTasks()
     {
         RAMcurrSize = RAMmaxSize;
         int tactLoops = 0;
@@ -84,13 +80,12 @@ public class Processor : MonoBehaviour
             RAMcurrSize--;
             tactLoops++;
         }
-    }
+    }*/
     public void Start()
     {
         mainTacter = tact();
-        UpdateTwt();
+       // UpdateTwt();
         StartCoroutine(mainTacter);
-        StartCoroutine(mainThreat());
     }
     /* public bool UseRam(int amount)
        {
@@ -115,16 +110,11 @@ public class Processor : MonoBehaviour
     {
         while (true)
         {
-            // DoTasks();
-           //RAMcurrSize += RAMmaxSize;
+           
       
             yield return test();
-            yield return new WaitForSeconds(tactWaitTime);
+            yield return new WaitForSeconds(1f/ tactsPS);
         }
-    }
-    public void s()
-    {
-       
     }
     public IEnumerator test()
     {

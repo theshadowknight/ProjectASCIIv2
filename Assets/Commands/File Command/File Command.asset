@@ -14,6 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commandWord: file
   quickHelp: used for managing files
-  helpText: '-m make
+  helpText: '-d - deleting files: file -d |path|
 
-'
+    -m - making files: file -m
+    |path| |name| [c:8]{|extension|} {|data|}[c:0]
+
+    Examples:
+
+    file -d -c
+
+    file
+    -m -c name txt'

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class CommandManager : MonoBehaviour
 {
     public List<BaseCommand> commands = new List<BaseCommand>();
     public static CommandManager instance;
+    public Variable commandOutput;
     public void Awake()
     {
         if (instance != null)
@@ -23,19 +25,20 @@ public class CommandManager : MonoBehaviour
     {
         return commands.Find(x => x.commandWord == commandName);
     }
-    public Variable RAW_ExecuteCommand(string rawText)
+    public IEnumerator RAW_ExecuteCommand(string rawText)
     {
         string[] inputSplit = rawText.Split(' ');
         string commandName = inputSplit[0];
         string[] args = inputSplit.Skip(1).ToArray();
-        return ExecuteCommand(commandName, args);
-
+        yield return ExecuteCommand(commandName, args);
+        yield break;
     }
-    public Variable ExecuteCommand(string commandName, string[] args)
+    public IEnumerator ExecuteCommand(string commandName, string[] args)
     {
         BaseCommand bc = GetCommand(commandName);
-
-        return null;// bc.Execute(args);
+        yield return bc.Execute(args);
+        commandOutput = bc.commandOutput;
+        yield break;// bc.Execute(args);
     }
     public bool IsCommand(string commandName)
     {

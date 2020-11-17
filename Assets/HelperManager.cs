@@ -1,5 +1,6 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HelperManager : MonoBehaviour
@@ -18,21 +19,13 @@ public class HelperManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
- 
-    public string SizeConventer(long l)
-    {
-        if (l > 1073741824)
-        {
-            return (l / 1073741824).ToString("0") + "GB";
-        }else if (l > 1048576)
-        {
-            return (l / 1048576).ToString("0") + "MB";
-        }else if (l > 1024)
-        {
-            return (l / 1024).ToString("0") + "KB";
-        }
-        return l.ToString("0") + "B";
 
-        
-    } 
+   
+   
+   
+
+    public void test()
+    {
+        Debug.LogError("test");
+    }
 }

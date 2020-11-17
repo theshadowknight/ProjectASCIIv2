@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum VariableType { String,Int,Float,Double,Byte,Short,Bool,Char,Long,Error}
+public enum VariableType { String,Int,Float,Double,Byte,Short,Bool,Char,Long,NULL}
 public enum CompareType {  }
 
-public class Variable : MonoBehaviour
+[System.Serializable]
+public class Variable
 {
-    public string name;
+    public  string name;
     public string data;
     public VariableType type;
   

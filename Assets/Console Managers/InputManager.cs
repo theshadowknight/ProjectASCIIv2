@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using TMPro;
@@ -7,7 +8,7 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public TMP_InputField inputField;
-    public TextScreenManager TSM;
+    public CommandLineManager TSM;
     public List<string> lastCommands = new List<string>();
     public int maxLastCommand = 1;
     public int currentLastCommand = 0;
@@ -31,32 +32,40 @@ public class InputManager : MonoBehaviour
     }
     public void Done()
     {
+        StartCoroutine(ParseInput());
+    }
+    public IEnumerator ParseInput() {
+
+       // inputField.interactable = false;
         if (inputField.text == null || inputField.text == string.Empty || inputField.text == "")
         {
             inputField.ActivateInputField();
+          //  inputField.interactable = true;
 
-            return;
+            yield break;  
 
         }
-        TextScreenManager.instance.Write(StorageMemoryManager.instance.GetCurrentPath()+">"+ inputField.text);
+        yield return CommandLineManager.instance.Write(StorageMemoryManager.instance.GetCurrentPath()+">"+ inputField.text);
         string[] inputSplit = inputField.text.Split(' ');
         string commandName = inputSplit[0];
         string[] args = inputSplit.Skip(1).ToArray();
         if (CommandManager.instance.IsCommand(commandName))
         {
-            Variable v = CommandManager.instance.ExecuteCommand(commandName, (string[])args);
-            if (v.type == VariableType.Error)
+           yield return CommandManager.instance.ExecuteCommand(commandName, (string[])args); 
+            Variable v = CommandManager.instance.commandOutput;
+              
+            if (v.type == VariableType.NULL)
             {
-                TextScreenManager.instance.Write(""+v.data);
+                yield return CommandLineManager.instance.Write("[c:12]" + v.data+ "[c:0]");
             }
             else
             {
-                TextScreenManager.instance.Write(v.data);
+                yield return CommandLineManager.instance.Write(v.data);
             }
         }
         else
         {
-            TextScreenManager.instance.Write("Can't find entered command! Try using 'help' command.\n");
+            yield return CommandLineManager.instance.Write("Can't find entered command! Try using 'help' command.\n");
         }
         if (inputField.text != null && inputField.text != string.Empty && inputField.text != "")
         {
@@ -65,7 +74,18 @@ public class InputManager : MonoBehaviour
         inputField.text = string.Empty;
         inputField.ActivateInputField();
         currentLastCommand = 0;
+       // inputField.interactable = true;
 
+        yield break;
+    }
+    public void CheckIfItIsCorrect()
+    {
+     
+    }
+    public void ResetInput()
+    {
+          inputField.text = StorageMemoryManager.instance.gett();
+        inputField.stringPosition = StorageMemoryManager.instance.gett().Length;
     }
     public void Update()
     {

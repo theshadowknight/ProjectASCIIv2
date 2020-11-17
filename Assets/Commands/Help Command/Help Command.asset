@@ -14,4 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   commandWord: help
   quickHelp: used for getting general help
-  helpText: '*general help here*'
+  helpText: 'Command format is:
+
+    <cmd> [flag] value ...
+
+    <cmd> is for example
+    ''help''
+
+    [flag] is for example ''-c'' it always begins with ''-''.
+
+    {flag}
+    means it is optional
+
+    value is for example ''drive0:/main''
+
+    |value|
+    means value of type ''value''
+
+    {|value|} means it is optional'
