@@ -56,19 +56,35 @@ public class TextScreenManager : MonoBehaviour
         }
         else
         {
-            Ypos += delta;
-            Xpos = screen[Ypos].Length;
+            if(Xpos== screen[Ypos].Length )
+            {
+                Ypos += delta;
+                Xpos = screen[Ypos].Length;
+            }
+            else
+            {
+                Ypos += delta;
+                Xpos = Mathf.Clamp(Xpos, 0, screen[Ypos].Length);
+            }
+       
             inputStr = screen[Ypos];
             Display();
         }
     }
     public void TryMoveX(int delta)
     {
-        if (screen[Ypos].Length>Xpos+delta)
+        if (Xpos + delta < 0)
+        {
+
+            TryMoveY(-1);
+            Xpos = screen[Ypos].Length;
+
+        }
+        else if (screen[Ypos].Length>Xpos+delta)
         {
             Xpos += delta;
         }
-        else 
+         else
         {
             Xpos = screen[Ypos].Length;
 
@@ -100,19 +116,35 @@ public class TextScreenManager : MonoBehaviour
         {
             if (c == '\b') // has backspace/delete been pressed?
             {
-                if (inputStr.Length != 0)
-                {
-                    inputStr =/* inputStr.Substring(0, inputStr.Length - 1);*/ inputStr.Substring(0, Xpos-1) +  inputStr.Substring(Xpos);
-                    TryMoveX(-1);
-                }
-                else
+                if (inputStr.Length == 0)
                 {
                     //TryMoveY(-1);
                     screen.RemoveAt(Ypos);
                     screen.Add("");
+                    inputStr = screen[Ypos];
+
                     Display();
+
                     return;
                 }
+                else if (Xpos == 0)
+                {
+                    Debug.LogError("tp line up");
+                    string s = screen[Ypos];
+                    screen.RemoveAt(Ypos);
+                    screen.Add("");
+                    TryMoveY(-1);
+                    Xpos = screen[Ypos].Length;
+                    screen[Ypos] += s;
+                    inputStr = screen[Ypos];
+                }
+                else if (inputStr.Length != 0)
+                {
+                    inputStr =/* inputStr.Substring(0, inputStr.Length - 1);*/ inputStr.Substring(0, Xpos-1) +  inputStr.Substring(Xpos);
+                    TryMoveX(-1);
+                }
+                
+                
             }
             else if ((c == '\n') || (c == '\r')) // enter/return
             {

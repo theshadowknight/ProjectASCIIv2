@@ -297,7 +297,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64766384}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aa5793a34f66be8449abf91c0d9b7f04, type: 3}
   m_Name: 
@@ -619,6 +619,8 @@ MonoBehaviour:
     - '[bc:13]'
     - '[bc:14]'
     - '[bc:15]'
+    - '[bc:16]'
+    - '[c:16]'
     m_values:
     - </color>
     - <color=#3333B3>
@@ -652,6 +654,8 @@ MonoBehaviour:
     - <font="console2"><mark=#FF00FF>
     - <font="console2"><mark=#FFFF00>
     - <font="console2"><mark=#FDFDFC>
+    - <font="console2"><mark=#000000>
+    - <color=#000000>
   col:
   - {r: 0, g: 0, b: 0.5019608, a: 1}
   - {r: 0, g: 0.5019608, b: 0, a: 1}
@@ -804,7 +808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -23.300049, y: -30.700012}
+  m_AnchoredPosition: {x: -23.300018, y: -30.700012}
   m_SizeDelta: {x: 118.395996, y: 31.532532}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219344964
@@ -2058,36 +2062,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 668386815}
   m_CullTransparentMesh: 0
---- !u!21 &674635770
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/Scanlines
-  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Intensity: 0.25
-    - _Offset: 194.9027
-    - _ValueX: 300
-    m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &685526210
 GameObject:
   m_ObjectHideFlags: 0
@@ -2416,13 +2390,119 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6e1cfbad0ebe7448bd547d959bb95b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputer: {fileID: 0}
   screenText: {fileID: 1708355938}
-  baseScreen: 
-  screen: 'hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh
-
-    h'
-  pos: 0
+  baseScreen:
+  - str: '[bc:15][c:16]Noter.exe                                                      
+      v0.1[c:0][bc:0]'
+    replace: 1
+  - str: '[bc:15][c:16]--------------------------------------------------------------------[bc:0][c:0]'
+    replace: 1
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: 
+    replace: 0
+  - str: '[bc:15][c:16]                                                                  
+      .[c:0][bc:0]'
+    replace: 1
+  - str: '[bc:15][c:16]CTR+C - Quit                                                      
+      .[c:0][bc:0]'
+    replace: 1
+  screen:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  Ypos: 2
+  Xpos: 0
   inputStr: 
 --- !u!4 &802343411
 Transform:
@@ -4486,6 +4566,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1527635271}
   m_CullTransparentMesh: 0
+--- !u!21 &1578735403
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/Scanlines
+  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Intensity: 0.25
+    - _Offset: 283.6081
+    - _ValueX: 300
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1580109793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5596,7 +5706,7 @@ MonoBehaviour:
       lineSize: 72
     - lineCharSize: 68
       fontSize: 20
-      lineSize: 36
+      lineSize: 35
     - lineCharSize: 46
       fontSize: 30
       lineSize: 27
@@ -6138,8 +6248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanlineIntensity: 25
   scanlineWidth: 300
-  offset: 194.9027
-  material_Scanlines: {fileID: 674635770}
+  offset: 283.6081
+  material_Scanlines: {fileID: 1578735403}
   move: 1
   speedadd: 0.1
 --- !u!1 &2133208447
