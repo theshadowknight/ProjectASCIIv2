@@ -21,6 +21,8 @@ public class NoterLogic : MonoBehaviour
     public bool caretTick;
     public int posX;
     public int posY;
+    public int posPageY = 2;
+
     public List<line> baseScreen;
     // [Multiline(5)]
 
@@ -29,12 +31,12 @@ public class NoterLogic : MonoBehaviour
     public File currentFile;
     public string copiedText;
     public Coroutine cor;
- 
+
 
     public void OnEnable()
-    
+
     {
-     
+
         //   baseScreen[1].text = string.Format("[bc:15][c:16]{0,68}[bc:0][c:0]", ".");
         posY = 2;
         TryMoveY(0);
@@ -63,7 +65,11 @@ public class NoterLogic : MonoBehaviour
 
     public void TryMoveY(int delta)
     {
-        if (baseScreen[posY + delta].isStaticSpace)
+
+        if (posY + delta < 0)
+        {
+        }
+        else if (posY + delta >= currentScreen.Count)
         {
 
         }
@@ -90,7 +96,7 @@ public class NoterLogic : MonoBehaviour
         {
 
             TryMoveY(-1);
-       //     posX = currentScreen[posY].Length ;
+            //     posX = currentScreen[posY].Length ;
 
         }
         else if (currentScreen[posY].Length > posX + delta)
@@ -104,30 +110,43 @@ public class NoterLogic : MonoBehaviour
         }
         Display();
     }
+    public string GetScroll(int pos)
+    {
+        if (currentScreen.Count == 0)
+        {
+            return "[bc:15][c:16]" + "█" + "[c:0][bc:0]";
+
+        }
+        else
+        {
+
+            if (1f * (30f + posPageY + 2) * (30f / (currentScreen.Count - 1)) >= pos - 2 && pos - 2 >= 1f * (posPageY + 2) * (30f / (currentScreen.Count - 1)))
+            {
+                return "[bc:15]" + "█" + "[bc:0]";
+                // return pos.ToString("0");
+            }
+            else
+            {
+                return "" + "░" + "";
+                //return " ";
+
+            }
+        }
+
+        return "[bc:15][c:16]" + "█" + "[c:0][bc:0]";
+        //posPageY* (32f / currentScreen.Count)
+    }
+
     public string MakeDisplay()
     {
         string str = "";
-        for (int i = 0; i < baseScreen.Count; i++)
+        int len = (ThemeManager.instance.selectedSize.lineCharSize - 6);
+        //len *= -1;
+        //  Debug.Log("{0,-" + (len).ToString("0") + "}{1,1}\n");
+
+        for (int j = 0; j < baseScreen.Count; j++)
         {
-            /* if (!baseScreen[i].isStaticSpace)
 
-             {
-                 str += string.Format("{0,3} ", (i - 2).ToString("0"));
-                 if (currentScreen.Count <= i)
-                 {
-                     str += "\n";
-
-
-                 }
-                 else
-                 {
-                     str += currentScreen[i] + "\n";
-                 }
-             }
-             else
-             {
-                 str += baseScreen[i].text + "\n";
-             }*/
             string caret = "";
             if (caretTick)
             {
@@ -137,52 +156,78 @@ public class NoterLogic : MonoBehaviour
             {
                 caret = "" + "_" + "";
             }
-            if (!baseScreen[i].isStaticSpace)
+
+
+            if (!baseScreen[j].isStaticSpace)
             {
-                str += string.Format("{0,3} ", (i - 2).ToString("0"));
-                if (currentScreen.Count <= i)
+
+                if (currentScreen.Count <= j + posPageY)
                 {
-                    if (i == posY)
+                    if (j + posPageY == posY)
                     {
-                        str += currentScreen[posY].Substring(posX) + caret + "\n";
+                        str += caret + "\n";
                     }
                     else
                     {
-                        str += "\n";
+
+                        str += string.Format("{0,-" + (len).ToString("0") + "}{1,1}\n", "", GetScroll(j));
                     }
-                    
+
                 }
                 else
                 {
-                    if (i == posY)
+                    str += string.Format("{0,3} ", (j + posPageY).ToString("0"));
+
+                    if (j + posPageY == posY)
                     {
-                      //  Debug.LogError(currentScreen[posY].Length + " " + posX + " " + (currentScreen[posY].Length - posX - 1));
+                        //  Debug.LogError(currentScreen[posY].Length + " " + posX + " " + (currentScreen[posY].Length - posX - 1));
                         if (currentScreen[posY].Length > posX)
                         {
-                            str += currentScreen[posY].Substring(0, posX) + caret.Replace('_', currentScreen[posY][posX]) + currentScreen[posY].Substring(posX + 1, currentScreen[posY].Length - posX - 1) + "\n";
+                            string a = currentScreen[posY].Substring(0, posX) + caret.Replace('_', currentScreen[posY][posX]) + currentScreen[posY].Substring(posX + 1, currentScreen[posY].Length - posX - 1);
+                            if (caretTick)
+                            {
+                                string h = "";
+                                for (int i = 0; i < len - currentScreen[posY].Length; i++)
+                                {
+                                    h += " ";
+                                }
+                                str += a + h + GetScroll(j)+"\n";
+
+                            }
+                            else
+                            {
+                                str += string.Format("{0,-" + (len).ToString("0") + "}{1,1}\n", a, GetScroll(j));
+
+                            }
+                            //str += string.Format("{0,-" + (len).ToString("0") + "}{1,1}\n", a, GetScroll(j));
+
                         }
                         else
                         {
-                            str += currentScreen[posY].Substring(0, posX) + caret + "\n";
+                            string a = currentScreen[posY].Substring(0, posX) + caret;
+                            str += string.Format("{0,-" + (len).ToString("0") + "}{1,1}\n", a, GetScroll(j));
 
                         }
                     }
                     else
                     {
-                        str += currentScreen[i] + "\n";
+                        string a = currentScreen[j + posPageY];
+                        str += string.Format("{0,-" + (len).ToString("0") + "}{1,1}\n", a, GetScroll(j));
+
+
                     }
 
                 }
             }
             else
             {
-                str += baseScreen[i].text + "\n";
+                str += baseScreen[j].text + "\n";
             }
-            
+
         }
         return str;
     }
-   
+
     public void Display()
     {
         TextScreenManager.instance.Display(MakeDisplay());
@@ -203,16 +248,38 @@ public class NoterLogic : MonoBehaviour
         }
         return str;
     }
+    public void PageMove(int delta)
+    {
+        posPageY += delta;
+        if (posPageY < -2)
+        {
+            posPageY = -2;
+        }
+
+        if (posPageY > currentScreen.Count - 33)
+        {
+            posPageY = currentScreen.Count - 33;
+        }
+        Display();
+    }
     public void Update()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             TryMoveY(-1);
+            //  Debug.LogWarning(posY + posPageY>0);
+            if (posPageY + 2 > 0)
+            {
+                PageMove(-1);
+            }
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             TryMoveY(1);
-
+            if (posY - posPageY > ThemeManager.instance.selectedSize.lineSize - 5)
+            {
+                PageMove(1);
+            }
         }
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
@@ -222,7 +289,18 @@ public class NoterLogic : MonoBehaviour
         {
             TryMoveX(1);
         }
-        if (Input.GetKey(KeyCode.LeftControl)|| Input.GetKey(KeyCode.RightControl))
+        else if (Input.GetKeyDown(KeyCode.PageDown))
+        {
+
+            PageMove(-1);
+
+        }
+        else if (Input.GetKeyDown(KeyCode.PageUp))
+        {
+            PageMove(1);
+
+        }
+        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
         {
             if (Input.GetKeyDown(KeyCode.X))
             {
@@ -249,9 +327,20 @@ public class NoterLogic : MonoBehaviour
             {
                 Load();
             }
+            if (Input.GetKeyDown(KeyCode.PageDown))
+            {
+
+                PageMove(-(ThemeManager.instance.selectedSize.lineSize - 6));
+
+            }
+            else if (Input.GetKeyDown(KeyCode.PageUp))
+            {
+                PageMove((ThemeManager.instance.selectedSize.lineSize - 6));
+
+            }
         }
         Enter(Input.inputString);
-       
+
 
 
     }
@@ -266,7 +355,7 @@ public class NoterLogic : MonoBehaviour
                 if (inputStr.Length == 0)//remove line when line is empty
                 {
                     currentScreen.RemoveAt(posY);
-                    currentScreen.Add("");
+                    //  currentScreen.Add("");
                     inputStr = currentScreen[posY];
 
                     Display();
@@ -277,7 +366,7 @@ public class NoterLogic : MonoBehaviour
                 {
                     string s = currentScreen[posY];
                     currentScreen.RemoveAt(posY);
-                    currentScreen.Add("");
+                    //   currentScreen.Add("");
                     TryMoveY(-1);
                     posX = currentScreen[posY].Length;
                     currentScreen[posY] += s;
@@ -293,18 +382,18 @@ public class NoterLogic : MonoBehaviour
             }
             else if ((c == '\n') || (c == '\r')) // enter/return split text and move down
             {
-                string s = inputStr.Substring(posX) ;
+                string s = inputStr.Substring(posX);
                 inputStr = inputStr.Substring(0, posX);
                 currentScreen[posY] = inputStr;
-                currentScreen.Insert(posY+1, s);
-                currentScreen.RemoveAt(currentScreen.Count - 1);
+                currentScreen.Insert(posY + 1, s);
+                //   currentScreen.RemoveAt(currentScreen.Count - 1);
 
                 TryMoveY(1);
-              //  currentScreen.Insert(posY, s);
-              //  currentScreen.RemoveAt(currentScreen.Count - 1);
-               // currentScreen[posY] = s;
+                //  currentScreen.Insert(posY, s);
+                //  currentScreen.RemoveAt(currentScreen.Count - 1);
+                // currentScreen[posY] = s;
                 inputStr = currentScreen[posY];
-              
+
                 return;
             }
             else
@@ -320,7 +409,7 @@ public class NoterLogic : MonoBehaviour
                     posX++;
                 }
             }
-            if (currentScreen[posY].Length + 6 > ThemeManager.instance.selectedSize.lineCharSize)//when size is too big
+            if (currentScreen[posY].Length + 7 > ThemeManager.instance.selectedSize.lineCharSize)//when size is too big
             {
                 string s = currentScreen[posY + 1] + inputStr.Substring(posX);
 
@@ -337,13 +426,15 @@ public class NoterLogic : MonoBehaviour
     public void Load()
     {
         string[] ss = currentFile.data.Split('\n');
-        foreach(string s in ss)
+        currentScreen = new List<string>();
+        foreach (string s in ss)
         {
-            currentScreen[posY]=s.Replace("\n","").Replace("\\n", "").Replace(Environment.NewLine,"").Replace(""+(char)13,"");
-          
+
+            currentScreen.Add(s.Replace("\n", "").Replace("\\n", "").Replace(Environment.NewLine, "").Replace("" + (char)13, ""));
+
             posY++;
         }
-        posY = 2;
+        //  posY = 2;
     }
     public void Quit()
     {

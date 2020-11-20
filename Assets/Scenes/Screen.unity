@@ -810,7 +810,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -23.300018, y: -30.700012}
+  m_AnchoredPosition: {x: -23.299988, y: -30.699982}
   m_SizeDelta: {x: 118.395996, y: 31.532532}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &219344964
@@ -1945,36 +1945,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 637185053}
   m_CullTransparentMesh: 0
---- !u!21 &653820147
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/Scanlines
-  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Intensity: 0.25
-    - _Offset: 315.31003
-    - _ValueX: 300
-    m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &661619944
 GameObject:
   m_ObjectHideFlags: 0
@@ -3339,6 +3309,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096686709}
   m_CullTransparentMesh: 0
+--- !u!21 &1142605309
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/Scanlines
+  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Intensity: 0.25
+    - _Offset: 342.7117
+    - _ValueX: 300
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &1169532577
 GameObject:
   m_ObjectHideFlags: 0
@@ -5382,6 +5382,7 @@ MonoBehaviour:
   caretTick: 0
   posX: 0
   posY: 2
+  posPageY: -2
   baseScreen:
   - text: '[bc:15][c:16]Noter.exe                                                      
       v0.1[bc:0][c:0]'
@@ -5460,41 +5461,6 @@ MonoBehaviour:
       .[bc:0][c:0]'
     isStaticSpace: 1
   currentScreen:
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
   - 
   currentFile:
     id: 0
@@ -5916,8 +5882,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanlineIntensity: 25
   scanlineWidth: 300
-  offset: 315.31003
-  material_Scanlines: {fileID: 653820147}
+  offset: 342.7117
+  material_Scanlines: {fileID: 1142605309}
   move: 1
   speedadd: 0.1
 --- !u!1 &2133208447
