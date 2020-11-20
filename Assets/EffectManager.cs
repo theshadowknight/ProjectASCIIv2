@@ -1,16 +1,20 @@
 ﻿using HelperFunctions;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
 public class EffectManager : MonoBehaviour
 {
     public static EffectManager instance;
     public bool autoStart = false;
 
-    public CanvasGroup cg;
+    public CanvasGroup consoleCg;
+    public CanvasGroup textScreenCg;
+
     public Image img;
     public bool PcOn = false;
     public RawImage ri;
+    public TMP_InputField inputf;
     public void Awake()
     {
         if (instance != null)
@@ -36,7 +40,7 @@ public class EffectManager : MonoBehaviour
     {
         ri.color = new Color(1, 1, 1, 1);
         img.color = new Color(img.color.r, img.color.g, img.color.b,1f/4);
-        cg.alpha = 1f;
+        consoleCg.alpha = 1f;
         StartCoroutine(SetupIE(true));
         PcOn = true;
     }
@@ -106,7 +110,7 @@ public class EffectManager : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
 
             }
-            cg.alpha = (1f * a / 255);
+            consoleCg.alpha = (1f * a / 255);
             img.color = new Color(img.color.r, img.color.g, img.color.b, (1f * a / (255 * 4)));
             yield return new WaitForSeconds(0.01f);
 
@@ -144,7 +148,7 @@ public class EffectManager : MonoBehaviour
 
         }
         yield return CommandLineManager.instance.Write("Goodbye!");
-        int start = Mathf.CeilToInt(cg.alpha * 255);
+        int start = Mathf.CeilToInt(consoleCg.alpha * 255);
         for (int a = start; a > -1; a--)
         {
             if (a % 16 == 0)
@@ -152,7 +156,7 @@ public class EffectManager : MonoBehaviour
                 yield return new WaitForSeconds(0.1f);
 
             }
-            cg.alpha = (1f * a / 255);
+            consoleCg.alpha = (1f * a / 255);
             img.color = new Color(img.color.r, img.color.g, img.color.b, (1f * a / (255 * 4)));
 
             yield return new WaitForSeconds(0.01f);
@@ -205,5 +209,26 @@ public class EffectManager : MonoBehaviour
             CommandLineManager.instance.consoleText = "";
             CommandLineManager.instance.UpdateText();
         }
+    }
+    public void TransferToTS()
+    {
+        InputManager.instance.inputField.DeactivateInputField();
+        NoterLogic.instance.enabled = true;
+
+        InputManager.instance.enabled = false;
+       consoleCg.alpha = 0;
+      textScreenCg.alpha = 1;
+        inputf.enabled = false;
+    }
+    public void TransferToCL()
+    {
+        InputManager.instance.inputField.ActivateInputField();
+        inputf.enabled = true;
+
+        NoterLogic.instance.enabled = false;
+
+        InputManager.instance.enabled = true;
+        consoleCg.alpha = 1;
+        textScreenCg.alpha = 0;
     }
 }

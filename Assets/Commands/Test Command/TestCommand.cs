@@ -9,7 +9,7 @@ public class TestCommand : BaseCommand
 
     public override IEnumerator Execute(string[] args)
     {
-        /*  System.Random r = new System.Random();
+     /*  System.Random r = new System.Random();
           string l = "";
               l+= ((char)0);
           string joined = String.Join(l, args);
@@ -55,12 +55,17 @@ public class TestCommand : BaseCommand
               summedOutput += " " + bu;
               summedOutput += '\n';
           }
-          */
+      */
         if (args[0] == "noter")
-        {
+        {            
+            yield return StorageMemoryManager.instance.GetFileFormPath(StorageMemoryManager.instance.Pather(args[1]));
+            NoterLogic.instance.currentFile = StorageMemoryManager.instance.bufferFileGet;
+            NoterLogic.instance.Load();
+            EffectManager.instance.TransferToTS();
+  
 
         }
-        commandOutput = new Variable("out", VariableType.String, "");
+        commandOutput = new Variable("out", VariableType.String, "exiting Cosnole... ");
 
 
         yield break;

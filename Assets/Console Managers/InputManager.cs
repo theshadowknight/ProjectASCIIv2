@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 
@@ -26,7 +25,7 @@ public class InputManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-    public void Start()
+    public void OnEnable()
     {
         inputField.ActivateInputField();
     }
@@ -34,29 +33,37 @@ public class InputManager : MonoBehaviour
     {
         StartCoroutine(ParseInput());
     }
-    public IEnumerator ParseInput() {
+    public IEnumerator ParseInput()
+    {
 
-       // inputField.interactable = false;
+        // inputField.interactable = false;
         if (inputField.text == null || inputField.text == string.Empty || inputField.text == "")
         {
             inputField.ActivateInputField();
-          //  inputField.interactable = true;
+            //  inputField.interactable = true;
 
-            yield break;  
+            yield break;
 
         }
-        yield return CommandLineManager.instance.Write(StorageMemoryManager.instance.GetCurrentPath()+">"+ inputField.text);
+        yield return CommandLineManager.instance.Write(StorageMemoryManager.instance.GetCurrentPath() + ">" + inputField.text);
         string[] inputSplit = inputField.text.Split(' ');
         string commandName = inputSplit[0];
         string[] args = inputSplit.Skip(1).ToArray();
         if (CommandManager.instance.IsCommand(commandName))
         {
-           yield return CommandManager.instance.ExecuteCommand(commandName, (string[])args); 
+            yield return CommandManager.instance.ExecuteCommand(commandName, (string[])args);
             Variable v = CommandManager.instance.commandOutput;
-              
+            if (v.data == "exiting Cosnole... ")
+            {
+                lastCommands.Add(inputField.text);
+                currentLastCommand = 0;
+                yield return CommandLineManager.instance.Write(v.data);
+                inputField.text = string.Empty;
+                yield break;
+            }
             if (v.type == VariableType.NULL)
             {
-                yield return CommandLineManager.instance.Write("[c:12]" + v.data+ "[c:0]");
+                yield return CommandLineManager.instance.Write("[c:12]" + v.data + "[c:0]");
             }
             else
             {
@@ -74,17 +81,17 @@ public class InputManager : MonoBehaviour
         inputField.text = string.Empty;
         inputField.ActivateInputField();
         currentLastCommand = 0;
-       // inputField.interactable = true;
+        // inputField.interactable = true;
 
         yield break;
     }
     public void CheckIfItIsCorrect()
     {
-     
+
     }
     public void ResetInput()
     {
-          inputField.text = StorageMemoryManager.instance.gett();
+        inputField.text = StorageMemoryManager.instance.gett();
         inputField.stringPosition = StorageMemoryManager.instance.gett().Length;
     }
     public void Update()
