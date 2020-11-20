@@ -151,4 +151,5 @@ public class FontSizeSettings
 {
     public int lineCharSize=1;
     public int fontSize = 1;
+    public int lineSize = 1;
 }

@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace HelperFunctions
 {
-    public enum ConnectionTypes { System, User, Outside}
+    public enum ConnectionTypes { System, User, Outside }
     public enum PremissionTypes { Read, Write, Execute }
 
     public class Functions
     {
+        public static List<string> segement = new List<string> {"1111110", "0110000","1101101","1111001", "0110011" ,"1011011","1011111","1110000","1111111","1111011"};
         public static string SizeConventer(long l)
         {
             if (l > 1073741824)
@@ -52,33 +52,33 @@ namespace HelperFunctions
             List<Variable> vs = new List<Variable>();
             foreach (string str in s)
             {
-                if(str[0] == '#')
+                if (str[0] == '#')
                 {
                     continue;
                 }
                 string namer = str.Substring(0, str.IndexOf(": "));
                 string typer = "";
-                string datar = str.Substring( str.IndexOf(": ")+2);
+                string datar = str.Substring(str.IndexOf(": ") + 2);
 
                 if (str[0] == '(')
                 {
-                    
-                     namer = str.Substring(str.IndexOf(") ")+2, str.IndexOf(": ")-2- str.IndexOf(") "));
-                    typer = str.Substring(str.IndexOf("(")+1, str.IndexOf(") ")-1- str.IndexOf("("));
+
+                    namer = str.Substring(str.IndexOf(") ") + 2, str.IndexOf(": ") - 2 - str.IndexOf(") "));
+                    typer = str.Substring(str.IndexOf("(") + 1, str.IndexOf(") ") - 1 - str.IndexOf("("));
 
                 }
                 //    Debug.LogError(str+"-namer:" + namer + "\ntyper:" + typer + "\ndatar:" + datar);
                 vs.Add(new Variable(namer, GetVariableTypeFromString(typer), datar));
             }
-          
+
             return vs;
         }
         public static void TagVariablesToFile(File f, List<Variable> vs)
-        {     
+        {
             f.data = TagVariablesToString(vs);
-            f.UpdateSize();            
+            f.UpdateSize();
         }
-        public static string TagVariablesToString( List<Variable> vs)
+        public static string TagVariablesToString(List<Variable> vs)
         {
             string data = "";
             foreach (Variable v in vs)
@@ -91,7 +91,7 @@ namespace HelperFunctions
         }
         public static int HexToInt(string s)
         {
-          
+
             return Convert.ToInt32(s, 16);
 
         }
@@ -151,7 +151,7 @@ namespace HelperFunctions
             }
             return VariableType.NULL;
         }
-        public static string VariableTypeToString(VariableType vt,bool shortest)
+        public static string VariableTypeToString(VariableType vt, bool shortest)
         {
             switch (vt)
             {
@@ -267,11 +267,11 @@ namespace HelperFunctions
                     {
                         return "error";
                     }
-                    
+
             }
             return "";
         }
-        public static int EnumFromRegistryVariables(Type t,string namer)
+        public static int EnumFromRegistryVariables(Type t, string namer)
         {
             Variable v = StorageMemoryManager.instance.registryVariables.Find(x => x.name == namer);
             if (v != null)
@@ -287,17 +287,19 @@ namespace HelperFunctions
                     }
                 }
             }
-            
-                return -1;
-           
+
+            return -1;
+
         }
     }
     [Serializable]
-    public class VariableBlock {
+    public class VariableBlock
+    {
         public List<Variable> variables = new List<Variable>();
-        public VariableBlock(List<Variable> v) {
+        public VariableBlock(List<Variable> v)
+        {
             variables = v;
-        
+
         }
     }
 }

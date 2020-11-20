@@ -35,9 +35,10 @@ public class EffectManager : MonoBehaviour
     public void AutoStart()
     {
         ri.color = new Color(1, 1, 1, 1);
-        img.color = new Color(1, 1, 1, 1);
+        img.color = new Color(img.color.r, img.color.g, img.color.b,1f/4);
         cg.alpha = 1f;
         StartCoroutine(SetupIE(true));
+        PcOn = true;
     }
     public void SystemSetup()
     {
@@ -202,7 +203,7 @@ public class EffectManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.1f);
             CommandLineManager.instance.consoleText = "";
-
+            CommandLineManager.instance.UpdateText();
         }
     }
 }
