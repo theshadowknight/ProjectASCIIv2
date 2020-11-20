@@ -148,7 +148,7 @@ public class TextScreenManager : MonoBehaviour
             }
             else if ((c == '\n') || (c == '\r')) // enter/return
             {
-                string s = screen[Ypos + 1] + inputStr.Substring(Xpos);
+                string s =  inputStr.Substring(Xpos)+ screen[Ypos + 1] ;
 
                 inputStr = inputStr.Substring(0, Xpos );
                 screen[Ypos] = inputStr;
@@ -168,6 +168,16 @@ public class TextScreenManager : MonoBehaviour
                     inputStr = inputStr.Substring(0, Xpos) + c + inputStr.Substring(Xpos);
                     Xpos++;
                 }
+            }
+            if (screen[Ypos].Length+6 > ThemeManager.instance.selectedSize.lineCharSize)
+            {
+                string s = screen[Ypos + 1] + inputStr.Substring(Xpos);
+
+                inputStr = inputStr.Substring(0, Xpos);
+                screen[Ypos] = inputStr;
+                TryMoveY(1);
+                screen[Ypos] = s;
+                inputStr = screen[Ypos];
             }
             screen[Ypos] = inputStr;
             Display();
