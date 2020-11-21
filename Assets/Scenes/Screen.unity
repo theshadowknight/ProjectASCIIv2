@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "test noter ./system\u200B"
+  m_text: "run ./debug.txt\u200B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 03956e1e764bc2046a0deea6cfe53a35, type: 2}
   m_sharedMaterial: {fileID: 3812261203915431754, guid: 03956e1e764bc2046a0deea6cfe53a35, type: 2}
@@ -1696,6 +1696,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543640821}
   m_CullTransparentMesh: 0
+--- !u!21 &567152514
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Hidden/Scanlines
+  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - _Intensity: 0.25
+    - _Offset: 373.11356
+    - _ValueX: 300
+    m_Colors:
+    - _Color: {r: 0, g: 0, b: 0, a: 1}
+  m_BuildTextureStacks: []
 --- !u!1 &618463304
 GameObject:
   m_ObjectHideFlags: 0
@@ -2517,6 +2547,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ea24b0c8cbf73074e8b1afe80462a8f1, type: 2}
   - {fileID: 11400000, guid: fdef246091d202e4b83746afedb9313a, type: 2}
   - {fileID: 11400000, guid: 4806ad01b50fcc74fbf4080088514c6a, type: 2}
+  - {fileID: 11400000, guid: a5f4d9a00a329884b96882113668f230, type: 2}
   commandOutput:
     name: 
     data: 
@@ -3309,36 +3340,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096686709}
   m_CullTransparentMesh: 0
---- !u!21 &1142605309
-Material:
-  serializedVersion: 6
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: Hidden/Scanlines
-  m_Shader: {fileID: 4800000, guid: 329b8e47196a1db4fbd8ef4fee17fe23, type: 3}
-  m_ShaderKeywords: 
-  m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
-  m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
-  disabledShaderPasses: []
-  m_SavedProperties:
-    serializedVersion: 3
-    m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - _Intensity: 0.25
-    - _Offset: 342.7117
-    - _ValueX: 300
-    m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
-  m_BuildTextureStacks: []
 --- !u!1 &1169532577
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,20 +3475,20 @@ MonoBehaviour:
           data: '# this is a registry file. Be careful!
 
             (str) txt_executor:
-            drove0:/main/system/noter.exe
+            noter.exe
 
             (int) current_user: 1'
           premissionValue: 111000000
           files: []
           size: 0
           staticSize: 0
-        - name: noter
-          extension: exe
-          data: test noter
-          premissionValue: 111111111
-          files: []
-          size: 2048
-          staticSize: 1
+        size: -1
+        staticSize: 0
+      - name: debug
+        extension: txt
+        data: lol
+        premissionValue: 111000000
+        files: []
         size: -1
         staticSize: 0
       size: -1
@@ -5882,8 +5883,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scanlineIntensity: 25
   scanlineWidth: 300
-  offset: 342.7117
-  material_Scanlines: {fileID: 1142605309}
+  offset: 373.11356
+  material_Scanlines: {fileID: 567152514}
   move: 1
   speedadd: 0.1
 --- !u!1 &2133208447
@@ -6021,7 +6022,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 1, g: 1, b: 1, a: 0}
-  m_Text: test noter ./system
+  m_Text: run ./debug.txt
   m_CaretBlinkRate: 1
   m_CaretWidth: 3
   m_ReadOnly: 0
