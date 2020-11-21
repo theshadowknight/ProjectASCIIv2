@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using UnityEngine;
 public class NoterLogic : MonoBehaviour
 {
@@ -228,15 +229,16 @@ public class NoterLogic : MonoBehaviour
     public string GetText()
     {
         string str = "";
-        foreach (string s in currentScreen)
+        for (int i = 0; i < currentScreen.Count; i++)
         {
-            if (s == "" || s.Length == 0 || s == string.Empty)
+            // string s = currentScreen[i];
+            if (i + 1 == currentScreen.Count)
             {
-
+                str += currentScreen[i];
             }
             else
             {
-                str += s + Environment.NewLine;
+                str += currentScreen[i] + Environment.NewLine;
             }
         }
         return str;
@@ -467,7 +469,7 @@ public class NoterLogic : MonoBehaviour
     }
     public void Load()
     {
-        string[] ss = currentFile.data.Split('\n');
+        string[] ss = Regex.Split(currentFile.data, "\n"); //currentFile.data.Split('\n');
         currentScreen = new List<string>();
         foreach (string s in ss)
         {
