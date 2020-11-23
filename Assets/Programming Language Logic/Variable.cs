@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 public enum VariableType { String,Int,Float,Double,Byte,Short,Bool,Char,Long,NULL}
-public enum CompareType {  }
+public enum CompareType { IsGreaterThan, IsEqualTo , IsLessThan , IsLessOrEqualThan, IsGreaterOrEqualThan,IsDiffrent }
 
 [System.Serializable]
 public class Variable
@@ -35,7 +35,7 @@ public class Variable
             case VariableType.Int:
                 {
                                     
-                    return int.Parse(data)>int.Parse(v.data);
+                    return int.Parse(data) >int.Parse(v.data);
                 }
             case VariableType.Double:
                 {
@@ -74,7 +74,8 @@ public class Variable
         {
             case VariableType.Bool:
                 {
-                    return bool.Parse(data)==bool.Parse(v.data);
+                    
+                    return bool.Parse(data) == bool.Parse(v.data) ;
                 }
             case VariableType.Int:
                 {
@@ -90,6 +91,7 @@ public class Variable
                 }
             case VariableType.Byte:
                 {
+               
                     return byte.Parse(data) == byte.Parse(v.data);
                 }
             case VariableType.Char:
@@ -130,7 +132,7 @@ public class Variable
                 }
             case VariableType.Int:
                 {
-
+                    
                     return int.Parse(data) < int.Parse(v.data);
                 }
             case VariableType.Double:
@@ -220,5 +222,105 @@ public class Variable
         }
         return false;
     }
+    public bool AutoCompare(CompareType ct, Variable v2)
+    {
+        switch (ct)
+        {
+            case CompareType.IsEqualTo:
+                {
+                    return IsEqualTo(v2);
+                }
+            case CompareType.IsDiffrent:
+                {
+                    return !IsEqualTo(v2);
+                }
+            case CompareType.IsGreaterOrEqualThan:
+                {
+                    return IsGreaterOrEqualThan(v2);
+                }
+            case CompareType.IsGreaterThan:
+                {
+                    return IsGreaterThan(v2);
+                }
+            case CompareType.IsLessOrEqualThan:
+                {
+                    return IsLessOrEqualThan(v2);
+                }
+            case CompareType.IsLessThan:
+                {
+                    return IsLessThan(v2);
+                }
+        }
+        return false;
+    }
+    public static Variable Evaler(string s)
+    {
+        if (int.TryParse(s, out _))
+        {
+            return new Variable("", VariableType.Int, s);
+        }
+        string cut = s.Substring(0, s.Length - 1);
+
+        if (s[s.Length - 1] == 'd')
+        {
+            if (double.TryParse(cut, out _))
+            {
+                return new Variable("", VariableType.Double, cut);
+            }
+        }
+        if (s[s.Length - 1] == 'f')
+        {
+            if (float.TryParse(cut, out _))
+            {
+                return new Variable("", VariableType.Float, cut);
+            }
+        }
+        string cutter = s.Substring(1, s.Length - 2);
+
+        if (s[s.Length - 1] == '\'' && s[0] == '\'')
+        {
+            
+                return new Variable("", VariableType.Char, cutter);
+            
+        }
+        if (s[s.Length - 1] == '"' && s[0] == '"')
+        {
+            
+                return new Variable("", VariableType.String, cutter);
+            
+        }
+        if (s[s.Length - 1] == 's')
+        {
+            if (short.TryParse(cut, out _))
+            {
+                return new Variable("", VariableType.Short, cut);
+            }
+        }
+        if (s[s.Length - 1] == 'b')
+        {
+            if (byte.TryParse(cut, out _))
+            {
+                return new Variable("", VariableType.Byte, cut);
+            }
+        }
+        if (s == "true" || s == "false")
+        {
+           
+                return new Variable("", VariableType.Bool, s);
+            
+        }
+        if (s[s.Length - 1] == 'L')
+        {
+            if (short.TryParse(cut, out _))
+            {
+                return new Variable("", VariableType.Long, cut);
+            }
+        }
+       
+        return null;
+    }
+  //  public void GetNumericValue
+   
+
 }
 
